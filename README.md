@@ -1,4 +1,5 @@
 # LED-Light-bar-sequencer
 STM32 controls 12 10w LEDs, running several sequenses as well as one that is like Knight Rider.
 This is sort of a work in progress.  I say that because I have a bug that I have found a work around for, but want to figure out what going wrong.
-The problem: When using the pwmWrite() statement, some of the PWM pins (as defined in the board.cpp file for the stm32f103c8t6) don't seem to operate the way that they 
+The problem: When using the pwmWrite() statement, some of the PWM pins (as defined in the board.cpp file for the stm32f103c8t6) don't seem to operate the way that they should. They don't output a PWM signal.  The first pin in the array boardPWMPin[0] is mapped to B0, which is 16.  That pin will not output a signal using pwmWrite(boardPWMPin[0],65000).  If I execute an analogWrite((boardPWMPin[0],200) statement, then the pwmWrite(boardPWMPin[0],65000) will work. Some of the PWM pins in the boardPWMPin[n] array do work without executing an analogWrite statement but not all of them. 
+So, I'm placing the code as it is right now and is working because of a loop in setup() that executes an analogWrite() to each pin in the boardPWMPin[n] array.
